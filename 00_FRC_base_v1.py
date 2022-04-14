@@ -43,7 +43,7 @@ def yes_no (question):
 # loops to make testing faster...
 for item in range (0,6):
     want_help = yes_no ("Do you want to read the instructions?: ")
-    print ("You said '{}\n".format (want_help))
+    print ("You said '{}'\n".format (want_help))
 
 
 # *** main routine goes here ***
