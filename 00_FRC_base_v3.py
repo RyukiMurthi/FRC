@@ -1,5 +1,11 @@
+# import libraries
 import pandas
 
+
+# *** Functions go here ***
+
+# checks that input is either a float or an
+# integer that is more than zero. Takes in custom error message
 def num_check (question, error, num_type):
     valid = False
     while not valid:
@@ -14,6 +20,26 @@ def num_check (question, error, num_type):
 
         except ValueError:
             print (error)
+
+
+# checks that user has entered yes / no to a question
+def yes_no (question):
+    
+    to_check = ["yes", "no"]
+
+    valid = False
+    while not valid:
+
+        # ask question and put response in lowercase
+        response = input (question).lower()
+
+        for var_item in to_check:
+            if response == var_item:
+                return response
+            elif response == var_item[0]:
+                return var_item
+
+        print ("Please enter either yes / no...\n")
 
 #function to check name is not blank
 def not_blank (question, error):
@@ -92,21 +118,43 @@ def get_expenses (var_fixed):
 
     return [expense_frame, sub_total]
 
+def expense_print (heading, frame, subtotal):
+    print ()
+    print ("*** {} Costs ***".format(heading))
+    print (frame)
+    print ()
+    print ("{} Costs: ${: .2f}".format(heading, subtotal))
+    return ""
 
-# *** main routine starts here ***
+# *** main routine goes here ***
 
 # get product name
 product_name = not_blank ("Product name: ", "The product name can't be blank")
 
-# get fixed costs
-fixed_expenses = get_expenses ("fixed")
-fixed_frame = fixed_expenses [0]
-fixed_sub = fixed_expenses [1]
+print ()
+print ("Please enter your variable costs below...")
+# get variable costs
+variable_expenses = get_expenses ("variable")
+variable_frame = variable_expenses [0]
+variable_sub = variable_expenses [1]
 
-# *** printing area ***
+print()
+have_fixed =yes_no ("Do you have fixed costs (y/n)?: ")
+
+if have_fixed == "yes":
+    # get fixed costs
+    fixed_expenses = get_expenses ("fixed")
+    fixed_frame = fixed_expenses [0]
+    fixed_sub = fixed_expenses [1]
+else:
+    fixed_sub = 0
+
+# *** Printing area ***
 
 print ()
-print (fixed_frame [['Cost']])
+print ("*** Fund Raising - {} ***".format (product_name))
 print ()
+expense_print ("Variable", variable_frame, variable_sub)
 
-print ("Fixed costs: ${: .2f}".format (fixed_sub))
+if have_fixed == "yes":
+    expense_print ("Fixed", fixed_frame [['Cost']], fixed_sub)
