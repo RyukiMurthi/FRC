@@ -62,7 +62,7 @@ def profit_goal (total_costs):
         if profit_type == "unknown" and amount >= 100:
             dollar_type = yes_no ("Do you mean ${: .2f}.   "
                                   "ie {: .2f} dollars?, "
-                                  "y / n".format (amount, amount))
+                                  "yes / no: ".format (amount, amount))
 
             # set profit type based on user answer above
             if dollar_type == "yes":
@@ -72,9 +72,25 @@ def profit_goal (total_costs):
 
         elif profit_type == "unknown" and amount < 100:
             percent_type = yes_no ("Do you mean {}%?, "
-                                   "y / n".format (amount))
-            if percent_type == "$":
-                return amount
+                                   "yes / no: ".format (amount))
+            if percent_type == "yes":
+                profit_type = "%"
             else:
-                goal = (amount / 100) * total_costs
-                return goal
+                profit_type = "$"
+
+        # return profit goal to main routine
+        if profit_type == "$":
+            return amount
+        else:
+            goal = (amount / 100) * total_costs
+            return goal
+
+# main routine goes here
+all_costs = 200
+
+# loop for quick testing...
+for item in range (0, 6):
+    profit_target = profit_goal (all_costs)
+    print ("Profit Target: ${: .2f}".format (profit_target))
+    print ("Total Sales: ${: .2f}".format (all_costs + profit_target))
+    print ()
