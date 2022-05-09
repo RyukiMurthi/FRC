@@ -230,7 +230,7 @@ profit_target = profit_goal (all_costs)
 sales_needed = all_costs + profit_target
 
 # ask user for rounding
-round_to = num_check ("Round to the neaest...?: ", "Can't be 0", int)
+round_to = num_check ("Round to the nearest...?: ", "Can't be 0", int)
 
 # calculate recommended price
 selling_price = sales_needed / how_many
