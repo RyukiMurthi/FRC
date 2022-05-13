@@ -1,0 +1,11 @@
+Custom Pillows
+
+           Price  Quantity      Cost
+Item                                
+Pillow    $ 2.00       100  $ 200.00
+Printing  $ 0.25       100   $ 25.00
+
+        Price  Quantity     Cost
+Item                            
+Rent  $ 50.00         1  $ 50.00
+

@@ -1,14 +1,10 @@
 Custom Mugs
 
-        Item  Price  Quantity
-0       Mugs   1.00       300
-1   Printing   0.75       300
-2  Packaging   0.50        50
+       0
+0  False
 
-          Item  Price
-0         Rent     25
-1      Artwork     35
-2  Adventuring     10
+       0
+0  False
 
 $100.00
 

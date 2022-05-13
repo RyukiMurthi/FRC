@@ -23,25 +23,6 @@ def num_check (question, error, num_type):
             print (error)
 
 
-# checks that user has entered yes / no to a question
-def yes_no (question):
-    
-    to_check = ["yes", "no"]
-
-    valid = False
-    while not valid:
-
-        # ask question and put response in lowercase
-        response = input (question).lower()
-
-        for var_item in to_check:
-            if response == var_item:
-                return response
-            elif response == var_item[0]:
-                return var_item
-
-        print ("Please enter either yes / no...\n")
-
 #function to check name is not blank
 def not_blank (question, error):
    
@@ -195,6 +176,57 @@ def profit_goal (total_costs):
 def round_up (amount, round_to):
     return int (math.ceil (amount / round_to)) * round_to
 
+def yes_no (question):
+    
+    to_check = ["yes", "no"]
+
+    valid = False
+    while not valid:
+
+        # ask question and put response in lowercase
+        response = input (question).lower()
+
+        for var_item in to_check:
+            if response == var_item:
+                return response
+            elif response == var_item[0]:
+                return var_item
+
+        print ("Please enter either yes / no...\n")
+
+
+def instructions ():
+    show_help = yes_no("Do you want to see the instructions?: ")
+
+    if show_help == "yes":
+        print ()
+        print ("*** Fund Raising Calculator Instructions ***")
+        print ()
+        print ("This program will ask you for...")
+        print ("- The name of the product you are selling")
+        print ("- The number of items you are planning to sell")
+        print ("- The costs for each component of the product")
+        print ("- Your profit goal")
+        print ()
+        print ("It will then display a list of the other costs \n"
+               "with subtotals for the variable and fixed costs. \n"
+               "The program will tell you how much you should sell \n"
+               "each item for to reach your profit goal")
+        print ()
+        print ("The data will also be written to a text file which \n"
+               "has the same name as your product")
+
+    return ""
+
+# main routine goes here
+# list for valid yes / no responses
+
+# aks if instructions are needed
+instructions()
+print ()
+print ("*** Program launched ***")
+print ()
+
 # *** main routine goes here ***
 
 # get product name
@@ -211,8 +243,8 @@ variable_expenses = get_expenses ("variable")
 variable_frame = variable_expenses [0]
 variable_sub = variable_expenses [1]
 
-print()
-have_fixed = yes_no ("Do you have fixed costs (y/n)?: ")
+print ()
+have_fixed = yes_no("Do you have fixed costs (y/n)?: ")
 
 if have_fixed == "yes":
     # get fixed costs
@@ -239,17 +271,15 @@ print ("Selling Price (unrounded): "
 
 recommended_price = round_up (selling_price, round_to)
 
-# write data to file
-
 # *** Printing area ***
 
 print ()
 print ("*** Fund Raising - {} ***".format (product_name))
 print ()
-expense_print ("Variable", variable_frame, variable_sub)
+expense_print ("Variable costs", variable_frame, variable_sub)
 
 if have_fixed == "yes":
-    expense_print ("Fixed", fixed_frame [['Cost']], fixed_sub)
+    expense_print ("Fixed costs", fixed_frame [['Cost']], fixed_sub)
 
 print ()
 print ("*** Total Costs: ${: .2f} ***".format (all_costs))
@@ -257,10 +287,45 @@ print ()
 
 print ()
 print ("*** Profit and Sales Targets ***")
-print ("Profit Target: ${: .2f}".format (profit_target))
+profit_target_write = "Profit Target: ${: .2f}".format (profit_target)
+print (profit_target_write)
+
+
 print ("Total Sales: ${: .2f}".format (all_costs + profit_target))
 
 print ()
-print ("*** Pricing ***")
-print ("*** Minimum Price: ${: .2f}".format (selling_price))
-print ("Recommended Price: ${: .2f}".format (recommended_price))
+print ("------ Pricing ------")
+min_price_write  = "Minimum Price: ${: .2f}".format (selling_price)
+print ()
+rec_price_write = "*** Recommended Price: ${: .2f} ***".format (recommended_price)
+
+print (min_price_write)
+print (rec_price_write)
+
+
+# write to file
+
+variable_txt = pandas.DataFrame.to_string (variable_frame)
+fixed_txt = pandas.DataFrame.to_string (fixed_frame)
+
+to_write = [product_name, variable_txt, fixed_txt, 
+            profit_target_write, min_price_write,
+            rec_price_write]
+
+# write to file...
+# create file to hold data (add .txt extension)
+file_name = "{}.txt".format (product_name)
+text_file = open (file_name, "w+")
+
+# heading
+for item in to_write:
+    text_file.write (item)
+    text_file.write ("\n\n")
+
+# close file
+text_file.close()
+
+# print stuff
+for item in to_write:
+    print (item)
+    print ()

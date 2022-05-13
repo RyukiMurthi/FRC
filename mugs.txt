@@ -1,0 +1,16 @@
+mugs
+
+        Price  Quantity      Cost
+Item                             
+plain  $ 1.00       100  $ 100.00
+
+        Price  Quantity     Cost
+Item                            
+rent  $ 35.00         1  $ 35.00
+
+Profit Target: $ 67.50
+
+Minimum Price: $ 2.02
+
+*** Recommended Price: $ 4.00 ***
+

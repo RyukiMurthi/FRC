@@ -23,25 +23,6 @@ def num_check (question, error, num_type):
             print (error)
 
 
-# checks that user has entered yes / no to a question
-def yes_no (question):
-    
-    to_check = ["yes", "no"]
-
-    valid = False
-    while not valid:
-
-        # ask question and put response in lowercase
-        response = input (question).lower()
-
-        for var_item in to_check:
-            if response == var_item:
-                return response
-            elif response == var_item[0]:
-                return var_item
-
-        print ("Please enter either yes / no...\n")
-
 #function to check name is not blank
 def not_blank (question, error):
    
@@ -195,6 +176,57 @@ def profit_goal (total_costs):
 def round_up (amount, round_to):
     return int (math.ceil (amount / round_to)) * round_to
 
+def yes_no (question):
+    
+    to_check = ["yes", "no"]
+
+    valid = False
+    while not valid:
+
+        # ask question and put response in lowercase
+        response = input (question).lower()
+
+        for var_item in to_check:
+            if response == var_item:
+                return response
+            elif response == var_item[0]:
+                return var_item
+
+        print ("Please enter either yes / no...\n")
+
+
+def instructions ():
+    show_help = yes_no("Do you want to see the instructions?: ")
+
+    if show_help == "yes":
+        print ()
+        print ("*** Fund Raising Calculator Instructions ***")
+        print ()
+        print ("This program will ask you for...")
+        print ("- The name of the product you are selling")
+        print ("- The number of items you are planning to sell")
+        print ("- The costs for each component of the product")
+        print ("- Your profit goal")
+        print ()
+        print ("It will then display a list of the other costs \n"
+               "with subtotals for the variable and fixed costs. \n"
+               "The program will tell you how much you should sell \n"
+               "each item for to reach your profit goal")
+        print ()
+        print ("The data will also be written to a text file which \n"
+               "has the same name as your product")
+
+    return ""
+
+# main routine goes here
+# list for valid yes / no responses
+
+# aks if instructions are needed
+instructions()
+print ()
+print ("*** Program launched ***")
+print ()
+
 # *** main routine goes here ***
 
 # get product name
@@ -212,7 +244,7 @@ variable_frame = variable_expenses [0]
 variable_sub = variable_expenses [1]
 
 print()
-have_fixed = yes_no ("Do you have fixed costs (y/n)?: ")
+have_fixed = yes_no("Do you have fixed costs (y/n)?: ")
 
 if have_fixed == "yes":
     # get fixed costs
